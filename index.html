@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyBuddy Mini 📚</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  /* ── CSS Variables ── */
+  :root {
+    --green:      #3dba6f;
+    --green-dark: #2d9457;
+    --orange:     #ff8c42;
+    --orange-dk:  #e07030;
+    --blue:       #4fa3e0;
+    --purple:     #9b72cf;
+    --yellow:     #ffe066;
+    --red:        #f45b5b;
+    --bg:         #f0f8f2;
+    --card-bg:    #ffffff;
+    --text:       #2d3e2f;
+    --muted:      #7a8f7d;
+    --radius:     18px;
+    --shadow:     0 6px 24px rgba(0,0,0,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── Dot-grid background ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, #b8e0c4 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, var(--green) 0%, #52c97c 100%);
+    padding: 22px 24px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 16px rgba(61,186,111,0.30);
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-logo {
+    font-size: 38px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  }
+
+  .header-text h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 28px;
+    color: #fff;
+    letter-spacing: 0.5px;
+    line-height: 1;
+  }
+
+  .header-text p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.82);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .header-badge {
+    background: rgba(255,255,255,0.22);
+    border: 2px solid rgba(255,255,255,0.45);
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── Main container ── */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 36px 20px 60px;
+  }
+
+  /* ── Input card ── */
+  .input-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px;
+    margin-bottom: 32px;
+    border: 2px solid rgba(61,186,111,0.12);
+  }
+
+  .input-card h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+  }
+
+  .input-card .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 110px;
+    border-radius: 12px;
+    border: 2.5px solid #c8e8d4;
+    padding: 14px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    background: #f8fdf9;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 4px rgba(61,186,111,0.12);
+  }
+
+  textarea::placeholder { color: #aac5b2; }
+
+  .btn-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--orange), #ffad5e);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 13px 28px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(255,140,66,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary:hover  { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(255,140,66,0.42); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 2px solid #d5e8da;
+    border-radius: 50px;
+    padding: 11px 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .btn-secondary:hover { border-color: var(--green); color: var(--green-dark); }
+
+  /* ── Error banner ── */
+  .error-banner {
+    background: #fff0f0;
+    border: 2px solid #f8c3c3;
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    animation: slideIn 0.3s ease;
+  }
+
+  /* ── Loading spinner ── */
+  .loader-wrap {
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .spinner {
+    width: 52px;
+    height: 52px;
+    border: 5px solid #d4eddc;
+    border-top-color: var(--green);
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .loader-wrap p { color: var(--muted); font-weight: 700; font-size: 15px; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Section headers ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    margin-top: 36px;
+  }
+
+  .section-header h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    color: var(--text);
+  }
+
+  .section-pill {
+    background: var(--green);
+    color: #fff;
+    border-radius: 50px;
+    padding: 3px 12px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  /* ── Vocab cards ── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+  }
+
+  .vocab-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+    border-top: 5px solid var(--green);
+    animation: slideIn 0.35s ease both;
+    transition: transform 0.2s;
+  }
+
+  .vocab-card:hover { transform: translateY(-3px); }
+
+  .vocab-card:nth-child(2n)   { border-top-color: var(--orange); }
+  .vocab-card:nth-child(3n)   { border-top-color: var(--blue); }
+  .vocab-card:nth-child(4n)   { border-top-color: var(--purple); }
+
+  .vocab-word {
+    font-family: 'Fredoka One', cursive;
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+
+  .vocab-label {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+
+  .vocab-def {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .vocab-example {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  /* ── Quiz ── */
+  .quiz-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px 32px;
+    animation: slideIn 0.4s ease both;
+  }
+
+  .quiz-item {
+    margin-bottom: 28px;
+  }
+
+  .quiz-item:last-child { margin-bottom: 0; }
+
+  .quiz-question-text {
+    font-weight: 800;
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .q-num {
+    background: var(--green);
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 34px;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    border: 2px solid #e0eee5;
+    background: #f8fdf9;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .option-label:hover {
+    border-color: var(--green);
+    background: #edf8f1;
+  }
+
+  .option-label input[type="radio"] {
+    accent-color: var(--green);
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* answer feedback classes added by JS */
+  .option-label.correct {
+    border-color: var(--green);
+    background: #e3f7ec;
+    color: var(--green-dark);
+  }
+
+  .option-label.wrong {
+    border-color: var(--red);
+    background: #fff0f0;
+    color: var(--red);
+    text-decoration: line-through;
+  }
+
+  .quiz-divider {
+    height: 1px;
+    background: #eaf2ed;
+    margin: 20px 0;
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, var(--purple), #b896e8);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 13px 32px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(155,114,207,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(155,114,207,0.42); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+  /* ── Score banner ── */
+  .score-banner {
+    text-align: center;
+    padding: 28px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, #e3f7ec, #d4f0e4);
+    border: 2.5px solid var(--green);
+    margin-top: 24px;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+
+  .score-banner .emoji { font-size: 48px; margin-bottom: 8px; }
+  .score-banner h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 26px;
+    color: var(--green-dark);
+  }
+
+  .score-banner p {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── Animations ── */
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 560px) {
+    header { flex-direction: column; gap: 10px; text-align: center; }
+    .input-card { padding: 22px 18px; }
+    .quiz-card  { padding: 22px 18px; }
+    .options-list { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <div class="header-logo">🌱</div>
+    <div class="header-text">
+      <h1>StudyBuddy Mini</h1>
+      <p>MindGarden Learning Systems</p>
+    </div>
+  </div>
+  <div class="header-badge">Prototype</div>
+</header>
+
+<main>
+
+  <!-- ── Input card ── -->
+  <div class="input-card">
+    <h2>📝 Enter Vocabulary Words</h2>
+    <p class="subtitle">Type words separated by commas, then hit Generate!</p>
+    <textarea id="vocabInput"
+      placeholder="e.g. brave, curious, observe, compare, bright"
+    ></textarea>
+    <div class="btn-row">
+      <button class="btn-primary" id="generateBtn" onclick="sendWords()">
+        ✨ Generate Study Set
+      </button>
+      <button class="btn-secondary" onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <!-- ── Dynamic output ── -->
+  <div id="output"></div>
+
+</main>
+
+<script>
+// ── State ──
+let quizData = [];
+
+// ── Helpers ──
+function setLoading(on) {
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = on;
+  btn.textContent = on ? '⏳ Generating…' : '✨ Generate Study Set';
+}
+
+function clearAll() {
+  document.getElementById('vocabInput').value = '';
+  document.getElementById('output').innerHTML = '';
+  quizData = [];
+}
+
+function showError(msg) {
+  const out = document.getElementById('output');
+  out.innerHTML = `
+    <div class="error-banner">
+      <span>⚠️</span>
+      <span>${msg}</span>
+    </div>`;
+}
+
+// ── API call ──
+async function sendWords() {
+  const raw = document.getElementById('vocabInput').value;
+  const words = raw.split(',').map(w => w.trim()).filter(Boolean);
+
+  if (words.length === 0) {
+    showError('Please enter at least one word before generating!');
+    return;
+  }
+  if (words.length > 30) {
+    showError('Please enter 30 words or fewer for the demo.');
+    return;
+  }
+
+  setLoading(true);
+  document.getElementById('output').innerHTML = `
+    <div class="loader-wrap">
+      <div class="spinner"></div>
+      <p>Building your study set…</p>
+    </div>`;
+
+  try {
+    const response = await fetch('/api/vocab', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ words })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showError(data.error || 'Something went wrong. Please try again.');
+      return;
+    }
+
+    displayResults(data);
+
+  } catch (err) {
+    showError('Could not reach the server. Make sure the app is running locally.');
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+}
+
+// ── Display vocabulary + quiz ──
+function displayResults(data) {
+  // Store quiz data globally so submitQuiz() can access it
+  window.quizData = data.quiz;
+
+  const out = document.getElementById('output');
+  out.innerHTML = '';
+
+  // ── Vocab section ──
+  const vocabHeader = document.createElement('div');
+  vocabHeader.className = 'section-header';
+  vocabHeader.innerHTML = `
+    <h2>📖 Vocabulary Cards</h2>
+    <span class="section-pill">${data.words.length} words</span>`;
+  out.appendChild(vocabHeader);
+
+  const grid = document.createElement('div');
+  grid.className = 'vocab-grid';
+
+  data.words.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.style.animationDelay = `${i * 0.06}s`;
+    card.innerHTML = `
+      <div class="vocab-word">${escHtml(item.word)}</div>
+      <div class="vocab-label">Definition</div>
+      <div class="vocab-def">${escHtml(item.definition)}</div>
+      <div class="vocab-label">Example</div>
+      <div class="vocab-example">${escHtml(item.example)}</div>
+    `;
+    grid.appendChild(card);
+  });
+
+  out.appendChild(grid);
+
+  // ── Quiz section ──
+  if (data.quiz && data.quiz.length > 0) {
+    const quizHeader = document.createElement('div');
+    quizHeader.className = 'section-header';
+    quizHeader.innerHTML = `<h2>🧠 Quiz Time!</h2>`;
+    out.appendChild(quizHeader);
+
+    displayQuiz(data.quiz);
+  }
+}
+
+function displayQuiz(quiz) {
+  const out = document.getElementById('output');
+
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.id = 'quizCard';
+
+  let html = '';
+  quiz.forEach((q, i) => {
+    html += `
+      <div class="quiz-item" id="qi-${i}">
+        <div class="quiz-question-text">
+          <span class="q-num">${i + 1}</span>
+          <span>${escHtml(q.question)}</span>
+        </div>
+        <div class="options-list">`;
+
+    q.options.forEach((opt, j) => {
+      html += `
+          <label class="option-label" id="opt-${i}-${j}">
+            <input type="radio" name="q${i}" value="${escAttr(opt)}">
+            ${escHtml(opt)}
+          </label>`;
+    });
+
+    html += `</div>`;
+    if (i < quiz.length - 1) html += `<div class="quiz-divider"></div>`;
+    html += `</div>`;
+  });
+
+  html += `<button class="btn-submit" onclick="submitQuiz()" id="submitBtn">
+    🎯 Submit Quiz
+  </button>`;
+
+  card.innerHTML = html;
+  out.appendChild(card);
+}
+
+// ── Submit + score quiz ──
+function submitQuiz() {
+  const quiz = window.quizData;
+  if (!quiz || quiz.length === 0) return;
+
+  let score = 0;
+
+  quiz.forEach((q, i) => {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    const allLabels = document.querySelectorAll(`#qi-${i} .option-label`);
+
+    allLabels.forEach(label => {
+      const input = label.querySelector('input');
+      if (input.value === q.answer) {
+        label.classList.add('correct');
+      } else if (selected && input.value === selected.value) {
+        label.classList.add('wrong');
+      }
+      input.disabled = true;
+    });
+
+    if (selected && selected.value === q.answer) score++;
+  });
+
+  // Disable submit button
+  document.getElementById('submitBtn').disabled = true;
+
+  // Show score banner
+  const total = quiz.length;
+  const pct = Math.round((score / total) * 100);
+  let emoji = pct === 100 ? '🏆' : pct >= 70 ? '🎉' : pct >= 40 ? '👍' : '📚';
+  let msg   = pct === 100 ? 'Perfect score! You nailed it!' :
+              pct >= 70   ? 'Great job — keep it up!'       :
+              pct >= 40   ? 'Good effort — keep studying!'  :
+                            'Keep practicing — you\'ve got this!';
+
+  const banner = document.createElement('div');
+  banner.className = 'score-banner';
+  banner.innerHTML = `
+    <div class="emoji">${emoji}</div>
+    <h3>${score} / ${total} correct (${pct}%)</h3>
+    <p>${msg}</p>`;
+
+  document.getElementById('output').appendChild(banner);
+  banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ── XSS helpers ──
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) { return escHtml(s); }
+</script>
+</body>
+</html>
