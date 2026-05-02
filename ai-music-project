@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nevaeh's AI Music Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f8;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .song {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            max-width: 700px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .song h2 {
+            margin-top: 0;
+            color: #444;
+        }
+        .tool {
+            font-weight: bold;
+            color: #666;
+        }
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Nevaeh's AI Music Project</h1>
+
+<div class="song">
+    <h2>1. Walk the Wire</h2>
+    <p>A rebellious anthem about refusing to blend in and embracing your wild nature.</p>
+    <p class="tool">Made with: Suno AI</p>
+    <audio controls src="walk_the_wire.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>2. Dead Crown</h2>
+    <p>A dark emotional story about heartbreak, betrayal, and reclaiming your power.</p>
+    <p class="tool">Made with: Suno AI</p>
+    <audio controls src="dead_crown.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>3. REVOLUTION (혁명)</h2>
+    <p>A motivational uprising song about breaking limits and sparking change together.</p>
+    <p class="tool">Made with: Musicdonna AI</p>
+    <audio controls src="revolution.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>4. Battlefield Beatdown</h2>
+    <p>A high‑energy techno‑hip‑hop track inspired by FPS games and digital combat.</p>
+    <p class="tool">Made with: AI Music Generator</p>
+    <audio controls src="battlefield_beatdown.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>5. Nightmare in Requiem</h2>
+    <p>A horror‑survival themed song about facing monsters and fighting to stay alive.</p>
+    <p class="tool">Made with: AI Music Generator</p>
+    <audio controls src="nightmare_in_requiem.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>6. Stirring Up Memories</h2>
+    <p>A warm, cozy song about cooking, family, and creating memories through food.</p>
+    <p class="tool">Made with: AI Music Generator</p>
+    <audio controls src="stirring_up_memories.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>7. Neon Rebel Anthem</h2>
+    <p>A neon‑lit futuristic anthem about breaking rules and living boldly in the night.</p>
+    <p class="tool">Made with: Mureka.ai</p>
+    <audio controls src="neon_rebel_anthem.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>8. Heathers Hustle Anthem</h2>
+    <p>A dramatic, chaotic track inspired by *Heathers*, exploring rebellion and power.</p>
+    <p class="tool">Made with: AI Music Generator</p>
+    <audio controls src="heathers_hustle_anthem.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>9. The Man Who Wrote the World</h2>
+    <p>A tribute‑style song about a visionary writer reshaping the world with creativity.</p>
+    <p class="tool">Made with: AI Music Generator</p>
+    <audio controls src="the_man_who_wrote_the_world.mp3"></audio>
+</div>
+
+<div class="song">
+    <h2>10. Hear Me Out</h2>
+    <p>A heartfelt love song about loyalty, connection, and standing strong together.</p>
+    <p class="tool">Made with: AI Music Generator</p>
+    <audio controls src="hear_me_out.mp3"></audio>
+</div>
+
+</body>
+</html>
