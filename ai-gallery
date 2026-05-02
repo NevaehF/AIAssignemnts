@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fantasy Creatures Art Museum</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: #eee;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background: #222;
+            padding: 30px;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #7fd4ff;
+        }
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .art-piece {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px;
+            width: 80%;
+            max-width: 900px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.6);
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #7fd4ff;
+            margin-top: 15px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #222;
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>Fantasy Creatures Art Museum</header>
+
+<div class="gallery">
+
+    <div class="art-piece">
+        <img src="Forest Guardian Spirit.jpg" alt="Forest Guardian Spirit">
+        <h2>Forest Guardian Spirit</h2>
+        <p>A mystical protector formed from leaves, vines, and ancient woodland energy. This guardian watches over the forest with quiet wisdom.</p>
+        <p><strong>Created with:</strong> AI Generative Art Tool</p>
+    </div>
+
+    <div class="art-piece">
+        <img src="Crystal Dragon.png" alt="Crystal Dragon">
+        <h2>Crystal Dragon</h2>
+        <p>A majestic dragon with shimmering crystal scales that refract light into dazzling colors. A rare and powerful creature of legend.</p>
+        <p><strong>Created with:</strong> AI Generative Art Tool</p>
+    </div>
+
+    <div class="art-piece">
+        <img src="Shadow Panther.jpeg" alt="Shadow Panther">
+        <h2>Shadow Panther</h2>
+        <p>A sleek, enchanted panther born from living shadow. Its glowing eyes pierce the darkness as it moves silently through the night.</p>
+        <p><strong>Created with:</strong> AI Generative Art Tool</p>
+    </div>
+
+    <div class="art-piece">
+        <img src="Moonlight Kitsune.png" alt="Moonlight Kitsune">
+        <h2>Moonlight Kitsune</h2>
+        <p>A mystical fox spirit illuminated by moonlight, with flowing fur and ethereal energy radiating from its many tails.</p>
+        <p><strong>Created with:</strong> AI Generative Art Tool</p>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Fantasy Creatures Art Museum — Created by Nevaeh
+</footer>
+
+</body>
+</html>
