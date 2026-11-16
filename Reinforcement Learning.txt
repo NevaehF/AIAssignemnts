@@ -1,0 +1,108 @@
+Reinforcement Learning: 
+
+Create your own simulation using reinforcement learning. First pick a purpose for your simulation. Your simulation is a diagram you are 
+creating with the fallowing parts. You can create this in MS Paint. Or whatever software you would like. Make sure you pick a theme that you are passionate about, not just an easy theme. 
+
+Agent: The Security Robot we want to train.
+
+Environment: The [Wearhouse] environment  for the simulation for training. 
+
+State: Is the current status/position of the agent and state is also the possible states that the agent could choose next. 
+
+Action: Is the choice our robot makes [Could be moving from area 01 to area 02] 
+
+Rewards: Positive feedback, or Negative feedback. 
+
+
+Idea: 
+
+Simulation Name: Pet Training Simulator 
+
+Agent: 
+- The Robot trainer responsible for training the virtual pet
+- Learns optimal training techniques
+- Adapts communication and training methods
+
+Environment: 
+- A virtual home/training space
+- Contains different rooms and training areas
+- Includes various distractions and training props
+- Dynamic environment that changes based on pet's mood and learning progress
+
+State: 
+
+1. Pet States:
+- Mood (excited, calm, distracted, tired)
+- Current energy level
+- Hunger status
+- Learning progress for specific commands
+- Stress level
+- Personality type (eager, stubborn, playful, shy)
+
+2. Environment States:
+- Room type (living room, backyard, kitchen)
+- Time of day
+- Presence of distractions
+- Available training tools
+- Recent training history
+- Action: 
+
+Actions: 
+
+1. Training Actions:
+- Verbal commands (sit, stay, come, heel)
+- Physical gestures
+- Treat delivery
+- Praise/affection
+- Redirection
+- Waiting/observation
+- Changing training location
+- Adjusting training intensity
+
+2. Training Techniques:
+- Positive reinforcement
+- Clicker training
+- Lure-based training
+- Shaping (breaking down complex commands)
+- Ignore/reset
+
+Rewards: 
+Positive Rewards:
+- Pet successfully performs command (+10 points)
+- Pet shows improved focus (+5 points)
+- Reduced training time for learning a command (+7 points)
+- Maintaining calm demeanor during training (+3 points)
+
+Negative Rewards:
+- Pet becomes stressed (-5 points)
+- Ignoring commands repeatedly (-3 points)
+- Excessive distraction (-2 points)
+- Training session takes too long (-1 point per minute over optimal time)
+
+Learning Objectives:
+
+Learn optimal training sequence for different pet personalities
+Understand when to use different training techniques
+Maximize learning efficiency
+Minimize pet stress
+Build strong pet-trainer relationship
+
+Complexity Layers:
+
+Basic Level: Simple commands (sit, stay)
+Intermediate Level: Complex commands (heel, fetch)
+Advanced Level: Trick training, behavioral modification
+
+Simulation Challenges:
+
+Adapting to individual pet's learning style
+Balancing reward and correction
+Managing pet's emotional state
+Developing consistent training approach
+
+Potential Machine Learning Techniques:
+
+Q-Learning
+Policy Gradient Methods
+Deep Q-Networks
+Adaptive Learning Rates

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purr-fect Companions Cat Adoption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .cat-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .cat-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 30%;
+            margin-bottom: 20px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        .cat-card img {
+            max-width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .cat-card h2 {
+            color: #444;
+        }
+        .cat-card p {
+            color: #666;
+        }
+        .price {
+            font-weight: bold;
+            color: #2ecc71;
+            font-size: 1.2em;
+        }
+        .adopt-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .adopt-button:hover {
+            background-color: #2980b9;
+        }
+        #adoption-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: black;
+        }
+        #application-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        #application-form input, #application-form textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Purr-fect Companions Cat Adoption</h1>
+    
+    <div class="cat-container">
+        <div class="cat-card" data-name="Fluffy McWhiskers" data-fee="125">
+            <img src="/api/placeholder/300/300?text=Fluffy+Cat" alt="Fluffy Cat">
+            <h2>Fluffy McWhiskers</h2>
+            <p>A gentle, long-haired cat who loves cuddles and sunny windowsills. Great for families and quiet homes.</p>
+            <p class="price">Adoption Fee: $125</p>
+            <button class="adopt-button">Adopt Me!</button>
+        </div>
+        
+        <div class="cat-card" data-name="Tiger Tom" data-fee="100">
+            <img src="/api/placeholder/300/300?text=Tabby+Cat" alt="Tabby Cat">
+            <h2>Tiger Tom</h2>
+            <p>Energetic tabby with a playful personality. Perfect for active households and cat lovers who enjoy interactive play.</p>
+            <p class="price">Adoption Fee: $100</p>
+            <button class="adopt-button">Adopt Me!</button>
+        </div>
+        
+        <div class="cat-card" data-name="Princess Sophia" data-fee="150">
+            <img src="/api/placeholder/300/300?text=Siamese+Cat" alt="Siamese Cat">
+            <h2>Princess Sophia</h2>
+            <p>A regal Siamese with stunning blue eyes. Intelligent and vocal, she's looking for a companion who appreciates conversation.</p>
+            <p class="price">Adoption Fee: $150</p>
+            <button class="adopt-button">Adopt Me!</button>
+        </div>
+    </div>
+
+    <!-- Adoption Modal -->
+    <div id="adoption-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Adopt <span id="cat-name"></span></h2>
+            <p>Adoption Fee: $<span id="cat-fee"></span></p>
+            <form id="application-form">
+                <input type="text" id="name" placeholder="Your Full Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <input type="tel" id="phone" placeholder="Your Phone Number" required>
+                <textarea id="why-adopt" placeholder="Why do you want to adopt this cat?" required></textarea>
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get all adopt buttons
+        const adoptButtons = document.querySelectorAll('.adopt-button');
+        const modal = document.getElementById('adoption-modal');
+        const closeBtn = document.querySelector('.close-btn');
+        const catNameSpan = document.getElementById('cat-name');
+        const catFeeSpan = document.getElementById('cat-fee');
+        const applicationForm = document.getElementById('application-form');
+
+        // Add click event to each adopt button
+        adoptButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const catCard = this.closest('.cat-card');
+                const catName = catCard.dataset.name;
+                const catFee = catCard.dataset.fee;
+
+                // Set cat name and fee in modal
+                catNameSpan.textContent = catName;
+                catFeeSpan.textContent = catFee;
+
+                // Show the modal
+                modal.style.display = 'block';
+            });
+        });
+
+        // Close modal when close button is clicked
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close modal if clicked outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Handle form submission
+        applicationForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Collect form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const whyAdopt = document.getElementById('why-adopt').value;
+            const catName = catNameSpan.textContent;
+
+            // Simple validation (you'd want more robust validation in a real app)
+            if (name && email && phone && whyAdopt) {
+                alert(`Thank you, ${name}! 
+
+Your application to adopt ${catName} has been received. 
+We will review your application and contact you at ${email} or ${phone} within 2-3 business days.
+
+Purr-fect Companions Adoption Team`);
+
+                // Reset form and close modal
+                applicationForm.reset();
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

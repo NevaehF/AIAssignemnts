@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Maze Adventure</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        #gameContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #maze {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-template-rows: repeat(10, 50px);
+            gap: 2px;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #666;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .wall {
+            background-color: #222;
+        }
+        .player {
+            background-color: green;
+            border-radius: 50%;
+        }
+        .goal {
+            background-color: gold;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="maze"></div>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        class SnakeMaze {
+            constructor() {
+                this.mazeSize = 10;
+                this.maze = [];
+                this.playerPosition = { x: 0, y: 0 };
+                this.goalPosition = { x: 9, y: 9 };
+                this.snakePositions = [];
+                this.initializeMaze();
+                this.renderMaze();
+                this.setupControls();
+            }
+
+            initializeMaze() {
+                // Create maze with walls and paths
+                for (let y = 0; y < this.mazeSize; y++) {
+                    this.maze[y] = [];
+                    for (let x = 0; x < this.mazeSize; x++) {
+                        // Simple maze generation with some walls
+                        const isWall = Math.random() < 0.2 && 
+                            !(x === 0 && y === 0) && 
+                            !(x === 9 && y === 9);
+                        this.maze[y][x] = isWall ? 'wall' : 'path';
+                    }
+                }
+
+                // Ensure start and end are clear
+                this.maze[0][0] = 'path';
+                this.maze[9][9] = 'path';
+
+                // Add 3 random snakes
+                this.addSnakes(3);
+            }
+
+            addSnakes(count) {
+                while (this.snakePositions.length < count) {
+                    const x = Math.floor(Math.random() * this.mazeSize);
+                    const y = Math.floor(Math.random() * this.mazeSize);
+                    
+                    // Ensure snake is not on start, goal, or existing snake
+                    if (this.maze[y][x] === 'path' && 
+                        !(x === 0 && y === 0) && 
+                        !(x === 9 && y === 9) &&
+                        !this.snakePositions.some(snake => snake.x === x && snake.y === y)) {
+                        this.snakePositions.push({ x, y });
+                        this.maze[y][x] = 'snake';
+                    }
+                }
+            }
+
+            renderMaze() {
+                const mazeElement = document.getElementById('maze');
+                mazeElement.innerHTML = '';
+
+                for (let y = 0; y < this.mazeSize; y++) {
+                    for (let x = 0; x < this.mazeSize; x++) {
+                        const cell = document.createElement('div');
+                        cell.classList.add('cell');
+                        
+                        if (this.maze[y][x] === 'wall') {
+                            cell.classList.add('wall');
+                        }
+                        
+                        if (x === this.playerPosition.x && y === this.playerPosition.y) {
+                            cell.classList.add('player');
+                        }
+                        
+                        if (x === this.goalPosition.x && y === this.goalPosition.y) {
+                            cell.classList.add('goal');
+                        }
+
+                        mazeElement.appendChild(cell);
+                    }
+                }
+            }
+
+            setupControls() {
+                document.addEventListener('keydown', (event) => {
+                    let newX = this.playerPosition.x;
+                    let newY = this.playerPosition.y;
+
+                    switch(event.key.toLowerCase()) {
+                        case 'w': newY--; break;
+                        case 's': newY++; break;
+                        case 'a': newX--; break;
+                        case 'd': newX++; break;
+                    }
+
+                    this.movePlayer(newX, newY);
+                });
+            }
+
+            movePlayer(newX, newY) {
+                const messageElement = document.getElementById('message');
+                
+                // Check bounds and wall collision
+                if (newX < 0 || newX >= this.mazeSize || 
+                    newY < 0 || newY >= this.mazeSize || 
+                    this.maze[newY][newX] === 'wall') {
+                    return;
+                }
+
+                // Check snake collision
+                if (this.maze[newY][newX] === 'snake') {
+                    messageElement.textContent = 'Oops! You encountered a snake. Game Over!';
+                    messageElement.style.color = 'red';
+                    return;
+                }
+
+                // Move player
+                this.playerPosition.x = newX;
+                this.playerPosition.y = newY;
+
+                // Check goal
+                if (newX === this.goalPosition.x && newY === this.goalPosition.y) {
+                    messageElement.textContent = 'Congratulations! You reached the goal!';
+                    messageElement.style.color = 'green';
+                }
+
+                this.renderMaze();
+            }
+        }
+
+        // Initialize the game
+        const game = new SnakeMaze();
+    </script>
+</body>
+</html>
